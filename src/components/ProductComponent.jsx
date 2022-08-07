@@ -12,7 +12,7 @@ const ProductComponent = () => {
         const {id, title, image, price, category} = product
         return (
           <div key={id}>
-            <Link to={`/product/${id}`} />
+            <Link to={`/product/${id}`}> 
             <div>
               <div>
                 <img src={image} alt={title} />
@@ -23,6 +23,7 @@ const ProductComponent = () => {
                 <div>{category}</div>
               </div>
             </div>
+            </Link>
           </div>
         );
       })}
