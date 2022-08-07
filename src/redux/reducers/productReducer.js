@@ -1,6 +1,6 @@
 import { ActionTypes } from "../contants/action-types";
 
-// initializing a temporalty state
+// initializing a temporality state
 const initialState = {
   products: [
     {
