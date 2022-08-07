@@ -2,12 +2,15 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { selectedProduct} from '../redux/actions/productActions'
+import { selectedProduct } from "../redux/actions/productActions";
+
 const ProductDetail = () => {
-    const product = useSelector((state) => state.product)
+  const product = useSelector((state) => state.product);
+  console.log(product)
+  const { image, title, price, category, description } = product;
   const { productId } = useParams();
-  const dispatch = useDispatch()
-  console.log(productId);
+  const dispatch = useDispatch();
+  console.log(product);
 
   const fetchProductDetail = async () => {
     const response = await axios
@@ -15,12 +18,43 @@ const ProductDetail = () => {
       .catch((error) => {
         console.log("err", error);
       });
-      dispatch(selectedProduct(response.data))
+    dispatch(selectedProduct(response.data));
   };
+
+  useEffect(() => {
+    if (productId && productId !== "") fetchProductDetail();
+  }, [productId]);
 
   return (
     <div>
-      <h1> Product Detail</h1>
+      {Object.keys(product).length === 0 ? (
+        <div>...Loading</div>
+      ) : (
+        <div>
+          <div>
+            <div>AND</div>
+            <div>
+              <div>
+                <img alt={title} src={image} />
+              </div>
+              <div>
+                <h1>{title}</h1>
+                <h2>
+                  <a>${price}</a>
+                </h2>
+                <h3>{category}</h3>
+                <p>{description}</p>
+                <div>
+                  <div>
+                    <i></i>
+                  </div>
+                  <div>Add to Cart</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
